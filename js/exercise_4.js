@@ -94,3 +94,34 @@ map.on('locationFound', function(e){
 
 map.locate({setView: true})
   
+var routeLine = L.mapbox.featureLayer().addTo(map);
+function getDirections(frm, to){
+ 	var jsonPayload = JSON.stringify({
+    	locations: [
+          {lat: frm[1], lon: frm[0]}, 
+          {lat: to[1], lon: to[0]}
+        ],
+        costing: 'pedestrian',
+        units: 'miles'
+    }) 
+    $.ajax({
+    	url: 'http://valhalla.mapzen.com/route',
+        data: {
+          	json: jsonPayload,
+            api_key: 'valhalla-gwtf3x2'
+        }
+    }).done(function(data){
+        var routeShape = polyline.decode(data.trip.legs[0].shape);
+        routeLine.setGeoJSON({
+          	type: 'Feature',
+            geometry: {
+                type: 'LineString',
+                coordinates: routeShape
+            },
+            properties: {
+              	"stroke": "#ed23f1",
+                "stroke-opacity": 0.8,
+                "stroke-width": 8
+        })  
+    })  
+}  
