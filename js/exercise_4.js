@@ -66,8 +66,12 @@ var clickHandler = function(){
 }  
 
 featureLayer.on('ready', function(){
-  this.eachLayer(function(layer){
-      layer.on('clickk', clickHandler);
-  })
-})      
+    this.eachLayer(function(layer){
+        layer.on('clickk', clickHandler);
+    })
+})  
+
+map.on('click', function(){
+    $('#sidebar').fadeOut(200);
+})  
   
