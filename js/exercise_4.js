@@ -74,4 +74,18 @@ featureLayer.on('ready', function(){
 map.on('click', function(){
     $('#sidebar').fadeOut(200);
 })  
+
+var myLocation = L.mapbox.featureLayer().addTo(map);
+
+map.on('locationFound', function(e){
+	myLocation.setGeoJSON({
+    	type: 'Feature', 
+        geometry: {
+         	type: 'Point',
+            coordinates: [ e.latlng.lng, e.latlng.lat ]
+        }  
+    })
+})
+
+map.locate({setView: true})
   
