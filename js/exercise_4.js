@@ -59,8 +59,8 @@ var clickHandler = function(){
       if(feature.properties.website){
         info += '<p><a href="' + feature.properties.w '">' + feature.properties.website + '</a></p>';
       }
-    info += '</div>';
-    $('#info').append(info);
+      info += '</div>';
+      $('#info').append(info);
   })
   
 }  
